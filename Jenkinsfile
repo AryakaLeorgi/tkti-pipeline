@@ -5,23 +5,14 @@ pipeline {
         PROJECT_DIR = '/home/a/tkti'
         VENV_DIR = '/home/a/tkti/venv'
     }
-
-    stages {
-        stage('Setup Environment') {
-            steps {
-                dir("${env.PROJECT_DIR}") {
-                    sh '''
-                    echo "🔧 Setting up Python virtual environment..."
-                    if [ ! -d "venv" ]; then
-                        python3 -m venv venv
-                    fi
-                    source venv/bin/activate
-                    pip install --upgrade pip
-                    pip install -r requirements.txt
-                    '''
-                }
-            }
+    
+    stage('Setup Environment') {
+        dir('/home/a/tkti') {
+            sh 'python3 -m venv venv'
+            sh '. venv/bin/activate && pip install -r requirements.txt'
         }
+    }
+
 
         stage('Run Tests') {
             steps {
