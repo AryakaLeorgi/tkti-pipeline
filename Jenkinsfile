@@ -49,4 +49,3 @@ pipeline {
             echo '❌ Pipeline gagal!'
         }
     }
-}
